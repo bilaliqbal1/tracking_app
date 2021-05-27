@@ -10,6 +10,14 @@ const port = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());
 
+const uri = process.env.mongouri;
+mongoose.connect(uri,{ useNewUrlParser: true, useCreateIndex:true});
+
+const connection = mongoose.connection;
+connection.once('open', () => {
+    console.log('Mongo databse connected');
+})
+
 app.listen(port, ()=>{
     console.log(`Server is running on port${port}`);
 })
